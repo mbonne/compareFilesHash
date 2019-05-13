@@ -4,15 +4,14 @@
 # https://www.dyclassroom.com/howto-mac/how-to-verify-checksum-on-a-mac-md5-sha1-sha256-etc
 # http://osxdaily.com/2012/02/05/check-sha1-checksum-in-mac-os-x/
 # http://osxdaily.com/2009/10/13/check-md5-hash-on-your-mac/
+#When referring to a hexadecimal string output, it is case insensitive. A textual representation of binary data.
+#http://en.wikipedia.org/wiki/Hexadecimal
 
-#!/bin/bash
-
+# read will take user input and assign it to variable - fileToCompare, correctHash
 read -p "Enter Path To File: " fileToCompare
-
 read -p "Enter Files Correct Hash: " correctHash
 
 # Bash Menu Script
-
 PS3='Select Hash comparison you need: '
 options=("SHA-1" "SHA-256" "SHA-512" "md5" "Quit")
 select opt in "${options[@]}"
@@ -47,6 +46,7 @@ do
 done
 
 calculatedHash=$hashOption
+#taking the user inputted correctHash and converts to lowercase in the event website displays the hash all in CAPs
 lowerCaseHash=$(echo "$correctHash" | tr '[:upper:]' '[:lower:]')
 
 if [[ "${calculatedHash}" == "${lowerCaseHash}" ]]; then
