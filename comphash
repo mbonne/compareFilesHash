@@ -7,9 +7,28 @@
 #When referring to a hexadecimal string output, it is case insensitive. A textual representation of binary data.
 #http://en.wikipedia.org/wiki/Hexadecimal
 
-# read will take user input and assign it to variable - fileToCompare, correctHash
-read -p "Enter Path To File: " fileToCompare
-read -p "Enter Files Correct Hash: " correctHash
+###===============================================================##
+
+
+compHash(){
+  while true; do
+  # read will take user input and assign it to variable - fileToCompare, correctHash
+  read -e -r -p "Enter Path To File: " fileToCompare
+  if [ ! -e "$fileToCompare" ] ; then
+    echo -e "File Not Found. \n Enter Correct Filepath." >&2
+  else
+    break
+  fi
+done
+
+while true; do
+  read -e -r -p "Enter Files Correct Hash: " correctHash
+  if [  -z "$correctHash" ] ; then
+    echo -e "No Hash Value Entered." >&2
+  else
+    break
+  fi
+done
 
 # Bash Menu Script
 PS3='Select Hash comparison you need: '
@@ -58,5 +77,11 @@ else
   echo -e "\033[33;32m The Correct Hash: $correctHash" # GREEN \033[33;32m
   echo -e "\033[33;31m Your files Hash:  $calculatedHash"
 fi
+
+}
+
+
+compHash "$@"
+
 
 exit $?

@@ -1,0 +1,50 @@
+#!/bin/bash
+
+###===============================================================##
+##
+##            Name:  gethash
+##          Author:  mbonne
+##         Purpose:  Lists the hash values of a file
+##         Created:  2022-02-20
+##   Last Modified:
+##         Version:  1
+##    Source Notes:
+##
+##
+##
+###===============================================================##
+
+###==========================VARIABLES============================##
+
+fileToCheck="$1"
+
+###===============================================================##
+
+getHash(){
+
+  if [ -z "$1" ]
+  then
+    echo "No argument supplied"
+    read -e -r -p "Enter Path To File: " fileToCheck
+    [ ! -e "$fileToCheck" ] && echo -e "\033[33;31m File Not Found. \n You Entered: $fileToCheck" && exit 1
+  fi
+
+  for f in $fileToCheck
+  do
+    echo -e "\033[33;32m SHA-1: $(shasum -a 1 "$f" | awk '{print $1}') \n"
+    
+    echo -e "\033[33;32m SHA-256: $(shasum -a 256 "$f" | awk '{print $1}') \n"
+
+    echo -e "\033[33;32m SHA-512: $(shasum -a 512 "$f" | awk '{print $1}') \n"
+
+    echo -e "\033[33;32m md5: $(md5 "$f" | awk '{print $4}') \n"
+
+  done
+
+}
+
+
+getHash "$@"
+
+
+exit $?
