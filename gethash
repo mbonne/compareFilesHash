@@ -29,17 +29,17 @@ getHash(){
     [ ! -e "$fileToCheck" ] && echo -e "\033[33;31m File Not Found. \n You Entered: $fileToCheck" && exit 1
   fi
 
-  for f in $fileToCheck
-  do
-    echo -e "\033[33;32m SHA-1: $(shasum -a 1 "$f" | awk '{print $1}') \n"
+  #for f in $fileToCheck
+  #do
+    echo -e "\n\033[33;32m SHA-1: $(shasum -a 1 "$fileToCheck" | awk '{print $1}') \n"
     
-    echo -e "\033[33;32m SHA-256: $(shasum -a 256 "$f" | awk '{print $1}') \n"
+    echo -e "\033[33;32m SHA-256: $(shasum -a 256 "$fileToCheck" | awk '{print $1}') \n"
 
-    echo -e "\033[33;32m SHA-512: $(shasum -a 512 "$f" | awk '{print $1}') \n"
+    echo -e "\033[33;32m SHA-512: $(shasum -a 512 "$fileToCheck" | awk '{print $1}') \n"
 
-    echo -e "\033[33;32m md5: $(md5 "$f" | awk '{print $4}') \n"
+    echo -e "\033[33;32m md5: $(md5 "$fileToCheck" | awk '{print $NF}') \n"
 
-  done
+  #done
 
 }
 
